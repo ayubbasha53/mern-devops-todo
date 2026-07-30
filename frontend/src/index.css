@@ -1,0 +1,125 @@
+:root {
+  --bg: #0f1115;
+  --surface: #171a21;
+  --surface-2: #1f232c;
+  --border: #2a2f3a;
+  --text: #eef1f6;
+  --text-dim: #9aa3b2;
+  --accent: #5b8def;
+  --danger: #e5484d;
+  --pending: #9aa3b2;
+  --progress: #eab308;
+  --done: #22c55e;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.app-header { margin-bottom: 1.75rem; }
+.app-header h1 { margin: 0 0 0.25rem; font-size: 1.75rem; letter-spacing: -0.02em; }
+.subtitle { margin: 0; color: var(--text-dim); font-size: 0.9rem; }
+
+.task-form {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  gap: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.task-form input,
+.task-form select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--accent);
+  color: white;
+}
+
+.btn-secondary { background: var(--surface-2); color: var(--text-dim); border: 1px solid var(--border); }
+.btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
+
+.error-banner {
+  background: rgba(229, 72, 77, 0.12);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.loading, .empty-state { color: var(--text-dim); font-size: 0.9rem; }
+
+.task-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+
+.task-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--pending);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.task-item.status-in-progress { border-left-color: var(--progress); }
+.task-item.status-done { border-left-color: var(--done); }
+.task-item.status-done h3 { text-decoration: line-through; color: var(--text-dim); }
+
+.task-info h3 { margin: 0 0 0.2rem; font-size: 1rem; }
+.task-info p { margin: 0 0 0.4rem; color: var(--text-dim); font-size: 0.85rem; }
+
+.status-pill {
+  background: var(--surface-2);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+}
+
+.task-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+.task-actions button { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+
+@media (max-width: 480px) {
+  .task-form { grid-template-columns: 1fr; }
+  .task-item { flex-direction: column; align-items: flex-start; }
+}

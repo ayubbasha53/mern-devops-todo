@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import taskRoutes from "./routes/taskRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+
 
 dotenv.config();
 
@@ -13,7 +15,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ status: "ok", message: "MERN CRUD API is running" });
 });
-
+app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
 const PORT = process.env.PORT || 5000;

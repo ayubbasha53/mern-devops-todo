@@ -1,7 +1,12 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/tasks";
 
+function authHeaders() {
+  const token = localStorage.getItem("token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
 export async function getTasks() {
-  const res = await fetch(API_URL);
+  const res = await fetch(API_URL, { headers: { ...authHeaders() } });
   if (!res.ok) throw new Error("Failed to fetch tasks");
   return res.json();
 }
@@ -9,7 +14,7 @@ export async function getTasks() {
 export async function createTask(task) {
   const res = await fetch(API_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify(task),
   });
   if (!res.ok) throw new Error("Failed to create task");
@@ -19,7 +24,7 @@ export async function createTask(task) {
 export async function updateTask(id, updates) {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify(updates),
   });
   if (!res.ok) throw new Error("Failed to update task");
@@ -27,7 +32,10 @@ export async function updateTask(id, updates) {
 }
 
 export async function deleteTask(id) {
-  const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+    headers: { ...authHeaders() },
+  });
   if (!res.ok) throw new Error("Failed to delete task");
   return res.json();
 }
